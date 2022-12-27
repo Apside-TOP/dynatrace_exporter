@@ -1,11 +1,12 @@
 # Dynatrace Metric Exporter
+
 Prometheus exporter for Dynatrace's metrics and entity monitoring.
 
 Scrapes `/metrics` and `/entity` endpoints of **Dynartace API v2** and exposes metrics to Prometheus.
 
-This exporter allows you to easily retrieve all Dynatrace metrics and infrastructure heatlth state (healthy/unhealthy applications, hosts and services)
+This exporter allows you to easily retrieve all Dynatrace metrics and infrastructure heatlth state (healthy/unhealthy applications, hosts and services).
 
-# Example Grafana visualisations
+# rafana visualisations example 
 
 Apdex score, active users and errors per application :
 
