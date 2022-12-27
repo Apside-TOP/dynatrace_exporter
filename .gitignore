@@ -1,6 +1,12 @@
+# IDE configurations
 .vscode
 .idea
 *.iml
 
+# Output and logs
 *.log
 *.out
+
+# Releases
+*.zip
+*.tar.gz
