@@ -2,7 +2,7 @@
 
 ROOT=$(dirname "$0")
 
-INCLUDED_FILES="dynatrace_exporter.py dynatrace_exporter.yml requirements.txt LICENCE README.md"
+INCLUDED_FILES="dynatrace_exporter.py dynatrace_exporter.yml requirements.txt LICENSE README.md"
 
 RELEASE_BRANCH_PREFIX="release/"
 RELEASE_BRANCH_PREFIX_REGEX="${RELEASE_BRANCH_PREFIX/\//\\\/}"
@@ -41,7 +41,7 @@ EOM
 }
 
 echoeval(){
-  echo "$*"
+  echo ">>> $*"
   eval "$*"
 }
 
@@ -180,6 +180,7 @@ _cmd_create_version(){
   echo "returning back to previous branch $current_branch..."
   git checkout $current_branch
   
+  echo ""
   echo "DONE!"
 }
 
