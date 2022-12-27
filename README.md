@@ -40,7 +40,7 @@ optional arguments:
 # Configuration
 ### Dynatrace :
 
-```yaml
+```yml
 # General configurations
 general:
   api:
