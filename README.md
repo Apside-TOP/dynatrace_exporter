@@ -6,6 +6,16 @@ Scrapes `/metrics` and `/entity` endpoints of **Dynartace API v2** and exposes m
 
 This exporter allows you to easily retrieve all Dynatrace metrics and infrastructure heatlth state (healthy/unhealthy applications, hosts and services).
 
+Exporter developped by [Apside TOP](https://www.apside.com/) and sponsored by [Harmonie Mutuelle](https://www.harmonie-mutuelle.fr/)
+
+
+<div align="center">
+
+  <img alt="Apside TOP" src="assets/logo_apside_top.png" height="100" />
+  <img alt="Harmonie Mutuelle" src="assets/logo_hm.svg" height="100" />
+
+</div>
+
 # Grafana visualisations example 
 
 Apdex score, active users and errors per application :
@@ -38,7 +48,6 @@ optional arguments:
 ```
 
 # Configuration
-### Dynatrace :
 
 ```yml
 # General configurations
@@ -136,3 +145,18 @@ dynatrace_entity_host_health{<labels>}<value>
 # TYPE dynatrace_entity_application_health gauge 
 dynatrace_entity_application_health{<labels>}<value>
 ```
+
+# Sponsors
+
+Harmonie Mutuelle (https://www.harmonie-mutuelle.fr/) 
+
+![Logo Harmonie Mutuelle](assets/logo_hm.svg "Logo Harmonie Mutuelle")
+
+
+# Maintainers
+
+* [[Apside TOP](https://www.apside.com/)] Robin Maréchal ([@robinmarchal](https://github.com/robinmarechal))
+
+# License
+
+Apache License 2.0, see [LICENSE](LICENSE).
