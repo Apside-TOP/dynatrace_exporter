@@ -6,7 +6,7 @@ Scrapes `/metrics` and `/entity` endpoints of **Dynartace API v2** and exposes m
 
 This exporter allows you to easily retrieve all Dynatrace metrics and infrastructure heatlth state (healthy/unhealthy applications, hosts and services).
 
-Exporter developped by [Apside TOP](https://www.apside.com/) and sponsored by [Harmonie Mutuelle](https://www.harmonie-mutuelle.fr/)
+Exporter developped by [Apside TOP](https://www.apside.com/) and sponsored by [Harmonie Mutuelle](https://www.harmonie-mutuelle.fr/).
 
 
 <div align="center">
@@ -155,7 +155,7 @@ Harmonie Mutuelle (https://www.harmonie-mutuelle.fr/)
 
 # Maintainers
 
-* [[Apside TOP](https://www.apside.com/)] Robin Maréchal ([@robinmarchal](https://github.com/robinmarechal))
+* [[Apside TOP](https://www.apside.com/)] Robin Maréchal ([@robinmarechal](https://github.com/robinmarechal))
 
 # License
 
