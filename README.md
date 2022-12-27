@@ -6,7 +6,7 @@ Scrapes `/metrics` and `/entity` endpoints of **Dynartace API v2** and exposes m
 
 This exporter allows you to easily retrieve all Dynatrace metrics and infrastructure heatlth state (healthy/unhealthy applications, hosts and services).
 
-# rafana visualisations example 
+# Grafana visualisations example 
 
 Apdex score, active users and errors per application :
 
