@@ -597,6 +597,10 @@ class DynatraceCollector(CollectorInterface):
         else:
             if not self.config.service_filters: # No filter => Allow all services
                 return True
+            elif "properties" not in entity or "serviceType" not in entity["properties"]: # Error : entity.properties.serviceType no value
+                logging.warn("Cannot check if entity is allowed. Entity is of type is 'service', " \
+                    + "but cannot get value 'entity.properties.serviceType'. Entity will be allowed just in case.")
+                return True
             elif entity["properties"]["serviceType"] in self.config.service_filters: # Filter => Only requested types
                 return True
             else:
