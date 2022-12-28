@@ -202,7 +202,7 @@ while [[ $# -gt 0 ]]; do
       ;;
     -c|--create)
       CMD_CREATE_VERSION=1
-      VERSION="$2"
+      VERSION="${2^^}" # ^^ => String to upper
       shift
       ;;
     -*|--*)
