@@ -157,11 +157,14 @@ _cmd_list_versions(){
 }
 
 _cmd_show_last_version(){
-  echo "Latest version: "
-  fetch_last_versions 1
+  echo "Latest version: $(fetch_last_versions 1)"
 }
 
 _cmd_create_version(){
+  if [[ ! "$VERSION" =~ $SEMVER_REGEX ]]; then
+    VERSION="${VERSION^^}" # ^^ => String to upper
+  fi
+
   current_branch=$(git rev-parse --abbrev-ref HEAD)
 
   handle_version_value
@@ -176,7 +179,6 @@ _cmd_create_version(){
 
   remote=$(git remote | head -1)
 
-  echo "Version $VERSION will be created."
   echo ""
   echo "Updating local repository..."
   echoeval git pull
@@ -200,6 +202,8 @@ _cmd_create_version(){
   archive_name=$(get_archive_name)
   zipfile="$archive_name.zip"
   targzfile="$archive_name.tar.gz"
+  test -f "$zipfile" && echoeval rm "$zipfile"
+  test -f "$targzfile" && echoeval rm "$targzfile"
   echo "Creating archives $zipfile and $targzfile..."
   echoeval zip $archive_name.zip $INCLUDED_FILES
   echoeval tar -czf $archive_name.tar.gz $INCLUDED_FILES
@@ -207,8 +211,13 @@ _cmd_create_version(){
 
   echo "returning back to previous branch $current_branch..."
   git checkout $current_branch
-  
   echo ""
+
+  remote_url=$(git remote get-url origin)
+  release_url="$remote_url/releases/new?tag=$tag"  
+  echo "Publish your new release: $release_url"
+  echo ""
+  
   echo "DONE!"
 }
 
@@ -230,7 +239,7 @@ while [[ $# -gt 0 ]]; do
       ;;
     create)
       CMD_CREATE_VERSION=1
-      VERSION="${2^^}" # ^^ => String to upper
+      VERSION=$2
       shift
       ;;
     -*|--*)
@@ -240,6 +249,10 @@ while [[ $# -gt 0 ]]; do
   esac
   shift
 done
+
+# Move to project folder
+current_dir=$PWD
+test "$ROOT" != "." && echoeval cd $ROOT
 
 if [[ $CMD_LATEST_VERSION == 1 ]]; then
   _cmd_show_last_version
