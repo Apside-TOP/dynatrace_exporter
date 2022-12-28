@@ -10,10 +10,9 @@ Exporter developped by [Apside TOP](https://www.apside.com/) and sponsored by [H
 
 
 <div align="center">
-
-  <img alt="Apside TOP" src="assets/logo_apside_top.png" height="100" />
-  <img alt="Harmonie Mutuelle" src="assets/logo_hm.svg" height="100" />
-
+  <img alt="Apside TOP" src="assets/logo_apside_top.png" height="100" align="center" />
+  &emsp;&emsp;
+  <img alt="Harmonie Mutuelle" src="assets/logo_hm.svg" height="140" align="center" />
 </div>
 
 # Grafana visualisations example 
