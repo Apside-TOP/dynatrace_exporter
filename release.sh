@@ -6,7 +6,7 @@ INCLUDED_FILES="dynatrace_exporter.py dynatrace_exporter.yml requirements.txt LI
 
 RELEASE_BRANCH_PREFIX="release/"
 RELEASE_BRANCH_PREFIX_REGEX="${RELEASE_BRANCH_PREFIX/\//\\\/}"
-SEMVER_REGEX="(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(-[alpha|beta]\d*)?"
+SEMVER_REGEX="(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(-(alpha|beta)[0-9]*)?"
 
 CMD_CREATE_VERSION=0
 CMD_LIST_VERSIONS=0
@@ -61,17 +61,37 @@ get_patch(){
   get_part $1 3
 }
 
-fetch_last_versions(){
-  limit="$1"
-  git branch -a | grep -oP "${RELEASE_BRANCH_PREFIX_REGEX}${SEMVER_REGEX}$" | sort -Vr | head -$limit | sed s+"${RELEASE_BRANCH_PREFIX_REGEX}"+''+ | grep -oP $SEMVER_REGEX
+safe_inc_patch(){
+  patch_version="$1"
+
+  if [[ "$patch_version" =~ [0-9]+\-(alpha|beta)[0-9]* ]]; then
+    patch_value=$(echo $patch_version | cut -d - -f 1)
+    alphabeta=$(echo $patch_version | grep -oP "(alpha|beta)")
+    numeric_value=$(echo $patch_version | grep -oP [0-9]$)
+
+    if [[ "$numeric_value" == "" ]]; then 
+      numeric_value=2
+    else
+      numeric_value=$(( $numeric_value + 1 ))
+    fi
+
+    echo "$patch_value-$alphabeta$numeric_value"
+  else
+    echo $(( $patch_version + 1 ))
+  fi
 }
 
+fetch_last_versions(){
+  limit="$1"
+  # git branch -a | grep -oP "${RELEASE_BRANCH_PREFIX}${SEMVER_REGEX}$" | sort -Vr | uniq | head -$limit | sed s+"${RELEASE_BRANCH_PREFIX}"+''+ | grep -oP $SEMVER_REGEX
+  git branch -a | grep -oP "${RELEASE_BRANCH_PREFIX}${SEMVER_REGEX}$" | sort -Vr | uniq | head -$limit | grep -oP $SEMVER_REGEX
+}
 
 inc_version_major(){
   last=$(fetch_last_versions 1)
 
   major=$(get_major $last)
-  inc=$(( $major + 1 ))
+  inc=$(($major + 1))
 
   echo "$inc.0.0"
 }
@@ -92,7 +112,7 @@ inc_version_patch(){
   major=$(get_major $last)
   minor=$(get_minor $last)
   patch=$(get_patch $last)
-  inc=$(($patch + 1))
+  inc=$(safe_inc_patch $patch)
 
   echo "$major.$minor.$inc"
 }
@@ -146,6 +166,14 @@ _cmd_create_version(){
 
   handle_version_value
 
+  _cmd_show_last_version
+  read -p "Version $VERSION will be created. Continue ? [Y/n]: " response
+
+  if [[ "$response" != ""  ]] && [[ ! "$response" =~ [yY] ]]; then
+    echo "User response was: $response. Aborting operation."
+    exit 0
+  fi
+
   remote=$(git remote | head -1)
 
   echo "Version $VERSION will be created."
@@ -190,17 +218,17 @@ while [[ $# -gt 0 ]]; do
       show_help
       exit 0
       ;;
-    --last)
+    last)
       CMD_LATEST_VERSION=1
       ;;
-    -l|--list)
+    list)
       CMD_LIST_VERSIONS=1
       ;;
     --limit)
       LIST_LIMIT="$2"
       shift
       ;;
-    -c|--create)
+    create)
       CMD_CREATE_VERSION=1
       VERSION="${2^^}" # ^^ => String to upper
       shift
