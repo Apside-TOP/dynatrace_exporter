@@ -30,7 +30,7 @@ Applications health state :
 # Command line
 
 ```
-❯ python3 dynatrace_exporter.py --help
+❯ python3 dynatrace_exporter.py -h
 usage: dynatrace_exporter.py [-h] [--config.file CONFIG_FILE] [--web.listen-address LISTEN_ADDRESS] [--debug] [--test] [--output OUTPUT]
 
 Dynatrace data exporter
@@ -38,12 +38,12 @@ Dynatrace data exporter
 optional arguments:
   -h, --help            show this help message and exit
   --config.file CONFIG_FILE
-                        Path to config file
+                        Path to config file (default: dynatrace_exporter.yml)
   --web.listen-address LISTEN_ADDRESS
-                        Listen to this address and port
-  --debug               Enable debug
-  --test                Test metrics collection once, then stop exporter
-  --output OUTPUT       Output file when --test option is set
+                        Listen to this address and port (default: :9126)
+  --debug               Enable debug (default: False)
+  --test                Test metrics collection once, then stop exporter (default: False)
+  --output OUTPUT       Output file when --test option is set (default: None)
 ```
 
 # Configuration

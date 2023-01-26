@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import argparse
 import concurrent.futures
 import gzip
@@ -690,16 +692,15 @@ def load_cfg(path: str) -> dict:
         except yaml.YAMLError as exc:
             fatal_error(f"Error occurred during YAML configuration parsing: {exc}", exc_info=True)
 
-
 def parse_args() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Dynatrace data exporter")
-
+    parser = argparse.ArgumentParser(description="Dynatrace data exporter", formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    
     parser.add_argument(
         "--config.file",
         dest="config_file",
         required=False,
         help="Path to config file",
-        default=os.environ.get("CONFIG_FILE", "dynatrace_conf.yml"),
+        default=os.environ.get("CONFIG_FILE", "dynatrace_exporter.yml"),
     )
     
     parser.add_argument(
@@ -707,7 +708,7 @@ def parse_args() -> argparse.ArgumentParser:
         dest="listen_address",
         required=False,
         help="Listen to this address and port",
-        default=os.environ.get("LISTEN_ADDRESS", ":8000"),
+        default=os.environ.get("LISTEN_ADDRESS", ":9126"),
     )
 
     parser.add_argument(
@@ -716,7 +717,7 @@ def parse_args() -> argparse.ArgumentParser:
         required=False,
         action="store_true",
         help="Enable debug",
-        default=os.environ.get("debug", 0) == 1,
+        default=os.environ.get("DEBUG", 0) == 1,
     )
     
     parser.add_argument(
@@ -733,7 +734,7 @@ def parse_args() -> argparse.ArgumentParser:
         dest="output",
         required=False,
         help="Output file when --test option is set",
-        default=os.environ.get("CONFIG_FILE"),
+        default=os.environ.get("OUTPUT_FILE"),
     )
     return parser.parse_args()
 
