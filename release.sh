@@ -25,13 +25,13 @@ Version must follows semantic versionning pattern (X.Y.Z, X=major, Y=minor, Z=pa
 It will create the branch 'release/X.Y.Z', the tag 'vX.Y.Z' and both zip and tar.gz archives.
    
 Usage: 
-$ROOT/release.sh [-h|--help] [-l|--last] [-l|--list] [-c|--create <MAJOR|MINOR|PATCH|version>]
+$ROOT/release.sh [-h|--help] [last|list|create]
 
   -h --help               Display this help
-  --last                  Print most recent version
-  -l --list               List already created versions. use --limit to change max number of displayed versions
+  last                    Print most recent version
+  list                    List already created versions. use --limit to change max number of displayed versions
       --limit $LIST_LIMIT              Limit number of version to print with option --list
-  -c --create <version>   Create a new version. 
+  create <version>        Create a new version. 
                           Valid values are : MAJOR, MINOR, PATCH or a version number following semantic versioning format x.y.z
                           - MAJOR: skip to next major version. Eg: if last version is 1.2.3, version 2.0.0 will be created
                           - MINOR: skip to next minor version. Eg: if last version is 1.2.3, version 1.3.0 will be created
