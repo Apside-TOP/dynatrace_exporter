@@ -96,7 +96,7 @@ collectors:
       # Time range of query
       from: now-6h 
     # Metrics regex whitelist. Empty or undefined to allow all metrics. 
-    # Warning: enabling all (or at least a lot of) metrics will slow the exporter down to several minutes. 
+    # Warning: enabling all (or at least a lot of) metrics might slow the exporter down to several seconds, or even minutes. 
     # Be careful to timeouts.
     whitelist:
       - builtin:apps.+ 
