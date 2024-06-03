@@ -7,6 +7,7 @@ COPY requirements.txt /usr/src/app
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY dynatrace_exporter.py /usr/src/app
+COPY dynatrace_exporter.yml /usr/src/app
 
 EXPOSE 9126
 ENV LISTEN_ADDRESS=:9126
