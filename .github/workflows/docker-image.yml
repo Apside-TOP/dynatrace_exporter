@@ -1,0 +1,38 @@
+## Disabled atm because I need an access token for the container registry
+
+# name: Docker Image CI
+# description: Build docker image and push it to github container registry
+
+# on:
+#   push:
+#     branches: [ "develop", "release/*" ]
+#   pull_request:
+#     branches: [ "develop" ]
+
+# jobs:
+
+#   build:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v3
+
+#     - name: Login to GitHub Container Registry
+#       uses: docker/login-action@v2
+#       with:
+#         registry: ghcr.io
+#         username: ${{ github.repository_owner }}
+#         password: ${{ secrets.CR_PAT }}
+        
+#     - name: Build the dynatrace_exporter Docker image
+#       run: |
+#         REPO=${{ github.repository }}
+        
+#         VERSION=develop
+#         if [[ ${{ github.ref_name }} == release/* ]]; then
+#           VERSION=$(echo ${{ github.ref_name }} | cut -d / -f 2)
+#         fi
+        
+#         docker build . --tag ghcr.io/$REPO:$VERSION
+#         docker push ghcr.io/$REPO:$VERSION
