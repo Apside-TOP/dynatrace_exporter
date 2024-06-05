@@ -1,5 +1,6 @@
+### Create a tag "vX.Y.Z" when a branch "release/X.Y.Z" is created 
+
 name: Create tag on release
-description: Create a tag "vX.Y.Z" when a branch "release/X.Y.Z" is created 
 
 on:
   push:

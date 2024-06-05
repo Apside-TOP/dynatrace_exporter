@@ -1,7 +1,7 @@
-## Disabled atm because I need an access token for the container registry
+### Build docker image and push it to github container registry
+# Disabled atm because I need an access token for the container registry
 
 # name: Docker Image CI
-# description: Build docker image and push it to github container registry
 
 # on:
 #   push:

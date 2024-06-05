@@ -1,5 +1,6 @@
+### Package exporter into zip and tar.gz archives
+
 name: Publish Release
-description: Package exporter into zip and tar.gz archives
 
 on:
   push:
