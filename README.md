@@ -46,6 +46,18 @@ optional arguments:
   --output OUTPUT       Output file when --test option is set (default: None)
 ```
 
+# Running with docker
+
+1. Create a file `dynatrace_exporter.yml` with your configuration
+2. Build the image
+3. Run the image
+
+```
+docker run \
+    -v ./dynatrace_exporter.yml:/usr/src/app/dynatrace_exporter.yml \
+    <your_image>
+```
+
 # Configuration
 
 ```yml
