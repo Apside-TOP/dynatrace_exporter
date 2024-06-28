@@ -79,18 +79,18 @@ general:
 
 # Collectors configuration
 collectors:
-  # Collecting heald of Dynatrace entities with type 'service'
+  # Collecting health of Dynatrace entities with type 'service'
   service:
     enabled: true
     # Service's type whitelist. Empty or undefined to allow all types of service
     # service_type:
     #   - "DATABASE_SERVICE"
       
-  # Collecting heald of Dynatrace entities with type 'application'
+  # Collecting health of Dynatrace entities with type 'application'
   application:
     enabled: true
 
-  # Collecting heald of Dynatrace entities with type 'host'
+  # Collecting health of Dynatrace entities with type 'host'
   host:
     enabled: true
 
@@ -109,7 +109,7 @@ collectors:
       from: now-6h 
     # Metrics regex whitelist. Empty or undefined to allow all metrics. 
     # Warning: enabling all (or at least a lot of) metrics might slow the exporter down to several seconds, or even minutes. 
-    # Be careful to timeouts.
+    # Be careful to timeouts on Prometheus side.
     whitelist:
       - builtin:apps.+ 
       # - builtin:tech.+ 
