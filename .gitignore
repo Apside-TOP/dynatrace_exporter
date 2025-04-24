@@ -10,3 +10,11 @@
 # Releases
 *.zip
 *.tar.gz
+
+# Python venv
+bin
+.venv
+lib
+lib64
+pyvenv.cfg
+include

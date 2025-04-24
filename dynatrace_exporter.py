@@ -48,11 +48,11 @@ def remove_special_characters(str: str):
 def fmt_label_name(item: str):
     item = lower_first_character(item)
     item = remove_special_characters(item)
-    return re.sub("[.:\- ]", '_', item) 
+    return re.sub("[.:\\- ]", '_', item) 
 
 def fmt_metric_name(item: str):
     item = remove_special_characters(item)
-    return re.sub("[.:\- ]", '_', item)
+    return re.sub("[.:\\- ]", '_', item)
 
 def first_non_null(values: list):
     if not values:
