@@ -46,17 +46,62 @@ optional arguments:
   --output OUTPUT       Output file when --test option is set (default: None)
 ```
 
+# Running with a virtualenv
+
+1. Create and activate a virtual env
+
+Inside project folder: 
+
+```sh
+# Initialize you venv
+python3 -m venv .venv
+
+# Activate your venv
+source .venv/bin/activate
+
+# To confirm the virtual environment is activated
+# python executable whould be inside .env directory
+which python
+
+# Check venv python version
+python --version
+
+# Install dependencies inside your venv:
+pip install -r requirements.txt
+```
+
+To deactivate your virtual env:
+```sh
+deactivate
+```
+
+2. Create a file `dynatrace_exporter.yml` with your configuration
+
+3. Run the application (venv must be active)
+```sh
+python ./dynatrace_exporter.py --config.file dynatrace_exporter.yml
+```
+
+You can now navigate to http://localhost:9126/metrics.
+
 # Running with docker
 
-1. Create a file `dynatrace_exporter.yml` with your configuration
-2. Build the image
+1. Build the image
+```she
+docker build . -t <your_image>
+```
+
+2. Create a file `dynatrace_exporter.yml` with your configuration
 3. Run the image
 
-```
+```sh
 docker run \
     -v ./dynatrace_exporter.yml:/usr/src/app/dynatrace_exporter.yml \
+    -p 9126:9126
     <your_image>
 ```
+
+You can now navigate to http://localhost:9126/metrics.
 
 # Configuration
 
