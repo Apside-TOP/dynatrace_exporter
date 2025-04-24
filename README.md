@@ -2,7 +2,7 @@
 
 Prometheus exporter for Dynatrace's metrics and entity monitoring.
 
-Scrapes `/metrics` and `/entity` endpoints of **Dynartace API v2** and exposes metrics to Prometheus.
+Scrapes `/metrics` and `/entity` endpoints of **Dynatrace API v2** and exposes metrics to Prometheus.
 
 This exporter allows you to easily retrieve all Dynatrace metrics and infrastructure heatlth state (healthy/unhealthy applications, hosts and services).
 
@@ -46,6 +46,18 @@ optional arguments:
   --output OUTPUT       Output file when --test option is set (default: None)
 ```
 
+# Running with docker
+
+1. Create a file `dynatrace_exporter.yml` with your configuration
+2. Build the image
+3. Run the image
+
+```
+docker run \
+    -v ./dynatrace_exporter.yml:/usr/src/app/dynatrace_exporter.yml \
+    <your_image>
+```
+
 # Configuration
 
 ```yml
@@ -67,18 +79,18 @@ general:
 
 # Collectors configuration
 collectors:
-  # Collecting heald of Dynatrace entities with type 'service'
+  # Collecting health of Dynatrace entities with type 'service'
   service:
     enabled: true
     # Service's type whitelist. Empty or undefined to allow all types of service
     # service_type:
     #   - "DATABASE_SERVICE"
       
-  # Collecting heald of Dynatrace entities with type 'application'
+  # Collecting health of Dynatrace entities with type 'application'
   application:
     enabled: true
 
-  # Collecting heald of Dynatrace entities with type 'host'
+  # Collecting health of Dynatrace entities with type 'host'
   host:
     enabled: true
 
@@ -97,7 +109,7 @@ collectors:
       from: now-6h 
     # Metrics regex whitelist. Empty or undefined to allow all metrics. 
     # Warning: enabling all (or at least a lot of) metrics might slow the exporter down to several seconds, or even minutes. 
-    # Be careful to timeouts.
+    # Be careful to timeouts on Prometheus side.
     whitelist:
       - builtin:apps.+ 
       # - builtin:tech.+ 
