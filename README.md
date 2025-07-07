@@ -84,6 +84,50 @@ python ./dynatrace_exporter.py --config.file dynatrace_exporter.yml
 
 You can now navigate to http://localhost:9126/metrics.
 
+## Bonus: Install dependencies on an offline server
+
+1. On an online server
+
+If needing a virtual env:
+
+```sh
+/path/to/python_of_your_choice -m venv .venv
+source .venv/bin/activate
+
+# Check venv python version
+python --version
+```
+
+Install and package dependencies:
+
+```sh
+mkdir dependencies
+pip download -r requirements.txt -d "./dependencies"
+tar cvfz dependencies.tar.gz dependencies
+```
+
+Then copy `dependencies.tar.gz` to your offline server. 
+
+2. On the offline server
+
+If needing a virtual env :
+
+```sh
+/path/to/python_of_your_choice -m venv .venv
+source .venv/bin/activate
+
+# Check venv python version
+python --version
+```
+
+Then install previously packaged dependencies:
+
+```sh
+tar zxvf dependencies.tar.gz
+cd dependencies
+pip install * -f ./ --no-index
+```
+
 # Running with docker
 
 1. Build the image

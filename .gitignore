@@ -11,6 +11,9 @@
 *.zip
 *.tar.gz
 
+# Unpacked dependencies
+dependencies/
+
 # Python venv
 bin
 .venv
