@@ -1,4 +1,5 @@
 FROM python:3.13.3-slim
+LABEL org.opencontainers.image.source="https://github.com/robinmarechal/dynatrace_exporter"
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app

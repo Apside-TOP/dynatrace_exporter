@@ -1,0 +1,46 @@
+name: Publish Release
+
+on:
+  push:
+    tags: [ "v*" ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    env: 
+      ARCHIVE_FILES: "dynatrace_exporter.py dynatrace_exporter.yml requirements.txt LICENSE README.md"
+
+    steps:
+    - name: Set develop VERSION env
+      run: echo "VERSION=$(echo ${{ github.ref_name }} | sed s/v//)" >> $GITHUB_ENV
+    - name: Set ARCHIVE_NAME env
+      run: echo "ARCHIVE_NAME=$(echo ${GITHUB_REPOSITORY#*/}-$VERSION)" >> $GITHUB_ENV
+    
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    # Builds
+    - name: Build sha256sums
+      run: echo ${{ github.sha }} > sha256sums.txt
+    - name: Build zip
+      run: zip $ARCHIVE_NAME.zip $ARCHIVE_FILES
+    - name: Build targz
+      run: tar -czf $ARCHIVE_NAME.tar.gz $ARCHIVE_FILES
+      
+    # Tests
+    - name: Test sha256sums
+      run: cat sha256sums.txt
+    - name: Test zip
+      run: test -f $ARCHIVE_NAME.zip
+    - name: Test targz
+      run: test -f $ARCHIVE_NAME.tar.gz
+      
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        token: ${{ secrets.CR_PAT }}
+        files: |
+          sha256sums.txt
+          ${{ env.ARCHIVE_NAME }}.zip
+          ${{ env.ARCHIVE_NAME }}.tar.gz
